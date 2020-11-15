@@ -87,7 +87,7 @@ def query():
 
 # Create Text Boxes
 f_name = tk.Entry(root, width=30)
-f_name.grid(row=0, column=1, padx=20)
+f_name.grid(row=0, column=1, padx=20, pady=(10, 0))
 l_name = tk.Entry(root, width=30)
 l_name.grid(row=1, column=1)
 address = tk.Entry(root, width=30)
@@ -101,7 +101,7 @@ zipcode.grid(row=5, column=1)
 
 # Create Text Box Labels
 f_name_label = tk.Label(root, text="First Name")
-f_name_label.grid(row=0, column=0)
+f_name_label.grid(row=0, column=0, pady=(10, 0))
 l_name_label = tk.Label(root, text="Last Name")
 l_name_label.grid(row=1, column=0)
 address_label = tk.Label(root, text="Address")
