@@ -25,6 +25,24 @@ c = conn.cursor()
 #        zipcode integer
 #    )""")
 
+# Create delete records
+
+def delete():
+    # Create a database or connect to one
+    conn = sqlite3.connect("address_book.db")
+
+    # Create cursor
+    c = conn.cursor()
+
+    # Delete record
+    c.execute("DELETE from addresses WHERE oid=PLACEHOLDER")
+    
+    # Commit Changes
+    conn.commit()
+
+    # Close connection
+    conn.commit()
+
 # Create submit function for database
 def submit():
     # Create a database or connect to one
