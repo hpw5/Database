@@ -74,7 +74,7 @@ def query():
     # Loop through results
     print_records = ""
     for record in records:
-        print_records += str(record[0]) + " " + str(record[1]) + "\n"
+        print_records += str(record[0]) + " " + str(record[1]) + " " + "\t" + str(record[6]) + "\n"
 
     query_label = tk.Label(root, text=print_records)
     query_label.grid(row=8, column=0, columnspan=2)
