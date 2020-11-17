@@ -25,8 +25,14 @@ c = conn.cursor()
 #        zipcode integer
 #    )""")
 
-# Create delete records
+# Create Edit function to update a record
+def edit():
+    editor = tk.Tk()
+    editor.title("Update A Record")
+    editor.iconbitmap("./icon.ico")
+    editor.geometry("400x400")
 
+# Create delete records
 def delete():
     # Create a database or connect to one
     conn = sqlite3.connect("address_book.db")
@@ -95,7 +101,7 @@ def query():
         print_records += str(record[0]) + " " + str(record[1]) + " " + "\t" + str(record[6]) + "\n"
 
     query_label = tk.Label(root, text=print_records)
-    query_label.grid(row=11, column=0, columnspan=2)
+    query_label.grid(row=12, column=0, columnspan=2)
 
     # Commit Changes
     conn.commit()
@@ -132,7 +138,7 @@ state_label = tk.Label(root, text="State")
 state_label.grid(row=4, column=0)
 zipcode_label = tk.Label(root, text="Zipcode")
 zipcode_label.grid(row=5, column=0)
-delete_box_label = tk.Label(root, text="ID Number")
+delete_box_label = tk.Label(root, text="Select ID")
 delete_box_label.grid(row=9, column=0, pady=5)
 
 # Create Submit Button
@@ -146,6 +152,10 @@ query_btn.grid(row=7, column=0, columnspan=2, pady=10, padx=10, ipadx=138)
 # Create Delete Button
 delete_btn = tk.Button(root, text="Delete Record", command=delete)
 delete_btn.grid(row=10, column=0, columnspan=2, pady=10, padx=10, ipadx=136)
+
+# Create an Update Button
+edit_btn = tk.Button(root, text="Edit Record", command=edit)
+edit_btn.grid(row=11, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
 
 # Commit Changes
 conn.commit()
