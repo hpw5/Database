@@ -32,6 +32,59 @@ def edit():
     editor.iconbitmap("./icon.ico")
     editor.geometry("400x400")
 
+    # Create a database or connect to one
+    conn = sqlite3.connect("address_book.db")
+
+    # Create cursor
+    c = conn.cursor()
+
+    record_id = delete_box.get()
+    # Query the database
+    c.execute("SELECT * FROM addresses WHERE oid = " + record_id)
+    records = c.fetchall()
+    
+    # Create Text Boxes
+    f_name_editor = tk.Entry(editor, width=30)
+    f_name_editor.grid(row=0, column=1, padx=20, pady=(10, 0))
+    l_name_editor = tk.Entry(editor, width=30)
+    l_name_editor.grid(row=1, column=1)
+    address_editor = tk.Entry(editor, width=30)
+    address_editor.grid(row=2, column=1)
+    city_editor = tk.Entry(editor, width=30)
+    city_editor.grid(row=3, column=1)
+    state_editor = tk.Entry(editor, width=30)
+    state_editor.grid(row=4, column=1)
+    zipcode_editor = tk.Entry(editor, width=30)
+    zipcode_editor.grid(row=5, column=1)
+    
+    # Create Text Box Labels
+    f_name_label = tk.Label(editor, text="First Name")
+    f_name_label.grid(row=0, column=0, pady=(10, 0))
+    l_name_label = tk.Label(editor, text="Last Name")
+    l_name_label.grid(row=1, column=0)
+    address_label = tk.Label(editor, text="Address")
+    address_label.grid(row=2, column=0)
+    city_label = tk.Label(editor, text="City")
+    city_label.grid(row=3, column=0)
+    state_label = tk.Label(editor, text="State")
+    state_label.grid(row=4, column=0)
+    zipcode_label = tk.Label(editor, text="Zipcode")
+    zipcode_label.grid(row=5, column=0)
+
+# Loop through results
+    for record in records:
+        f_name_editor.insert(0, record[0])
+        l_name_editor.insert(0, record[1])
+        address_editor.insert(0, record[2])
+        city_editor.insert(0, record[3])
+        state_editor.insert(0, record[4])
+        zipcode_editor.insert(0, record[5])
+    
+    # Create an Save Button
+    # edit_btn = tk.Button(editor, text="Save Record", command=edit)
+    # edit_btn.grid(row=6, column=0, columnspan=2, pady=10, padx=10, ipadx=145)
+
+
 # Create delete records
 def delete():
     # Create a database or connect to one
