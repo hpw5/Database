@@ -26,11 +26,48 @@ c = conn.cursor()
 #    )""")
 
 # Create Edit function to update a record
+def update():
+    # Create a database or connect to one
+    conn = sqlite3.connect("address_book.db")
+
+    # Create cursor
+    c = conn.cursor()
+
+    record_id = delete_box.get()
+    c.execute("""UPDATE addresses SET
+        first_name = :first,
+        last_name = :last,
+        address = :address,
+        city = :city,
+        state = :state,
+        zipcode = :zipcode
+
+        WHERE oid = :oid""",
+
+        {
+            'first': f_name_editor.get(),
+            'last': l_name_editor.get(),
+            'address': address_editor.get(),
+            'city': city_editor.get(),
+            'state': state_editor.get(),
+            'zipcode': zipcode_editor.get(),
+            'oid': record_id
+        })
+
+    # Commit Changes
+    conn.commit()
+
+    # Close connection
+    conn.close()
+
+    editor.destroy()
+
 def edit():
+    global editor
     editor = tk.Tk()
     editor.title("Update A Record")
     editor.iconbitmap("./icon.ico")
-    editor.geometry("400x400")
+    editor.geometry("400x300")
 
     # Create a database or connect to one
     conn = sqlite3.connect("address_book.db")
@@ -43,6 +80,14 @@ def edit():
     c.execute("SELECT * FROM addresses WHERE oid = " + record_id)
     records = c.fetchall()
     
+    # Create global variavle for text box names
+    global f_name_editor
+    global l_name_editor
+    global address_editor
+    global city_editor
+    global state_editor
+    global zipcode_editor
+
     # Create Text Boxes
     f_name_editor = tk.Entry(editor, width=30)
     f_name_editor.grid(row=0, column=1, padx=20, pady=(10, 0))
@@ -81,8 +126,8 @@ def edit():
         zipcode_editor.insert(0, record[5])
     
     # Create an Save Button
-    # edit_btn = tk.Button(editor, text="Save Record", command=edit)
-    # edit_btn.grid(row=6, column=0, columnspan=2, pady=10, padx=10, ipadx=145)
+    edit_btn = tk.Button(editor, text="Save Record", command=update)
+    edit_btn.grid(row=6, column=0, columnspan=2, pady=10, padx=10, ipadx=145)
 
 
 # Create delete records
@@ -100,7 +145,7 @@ def delete():
     conn.commit()
 
     # Close connection
-    conn.commit()
+    conn.close()
 
 # Create submit function for database
 def submit():
@@ -125,7 +170,7 @@ def submit():
     conn.commit()
 
     # Close connection
-    conn.commit()
+    conn.close()
 
     # Clear the Text Boxes
     f_name.delete(0, tk.END)
