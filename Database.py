@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import ImageTk,Image
 import sqlite3
 
@@ -16,14 +17,18 @@ conn = sqlite3.connect("address_book.db")
 c = conn.cursor()
 
 # Create table
-#c.execute("""CREATE TABLE addresses (
-#        first_name text,
-#        last_name text,
-#        address text,
-#        city text,
-#        state text,
-#        zipcode integer
-#    )""")
+try:
+    c.execute("""CREATE TABLE addresses (
+        first_name text,
+        last_name text,
+        address text,
+        city text,
+        state text,
+        zipcode integer
+    )""")
+    messagebox.showinfo("No database found", "No existing database found. Creating new database.")
+except:
+    pass
 
 # Create Edit function to update a record
 def update():
